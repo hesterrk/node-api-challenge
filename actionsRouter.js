@@ -25,13 +25,24 @@ router.get("/:id", validateActionId(), async (req, res) => {
 
 
 
+//POST ACTION DEPENDS ON PROJECT ID 
 
 
 
 
 
-
-
+router.delete("/:id", validateActionId(), async (req, res, next) => {
+  try {
+    const count = await actions.remove(req.params.id);
+    if (count > 0) {
+      res.status(200).json({ message: "The action has been deleted" });
+    } else {
+      res.status(404).json({ message: "The action could not be found" });
+    }
+  } catch (error) {
+    next(err);
+  }
+});
 
 //Custom Middleware
 
