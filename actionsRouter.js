@@ -23,9 +23,8 @@ router.get("/:id", validateActionId(), async (req, res) => {
   }
 });
 
+//POST ACTION DEPENDS ON PROJECT ID
 
-
-//POST ACTION DEPENDS ON PROJECT ID 
 
 
 
@@ -43,6 +42,20 @@ router.delete("/:id", validateActionId(), async (req, res, next) => {
     next(err);
   }
 });
+
+router.put(
+  "/:id",
+  validateActionId(),
+  validateAction(),
+  async (req, res, next) => {
+    try {
+      const action = await actions.update(req.params.id, req.body);
+      res.status(200).json(action);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 //Custom Middleware
 
