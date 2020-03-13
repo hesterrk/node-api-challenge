@@ -15,47 +15,57 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", validateActionId(), async (req, res) => {
+  try {
+    res.status(200).json(req.action);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
 //Custom Middleware
 
 function validateActionId() {
-    return (req, res, next) => {
-      actions.get(req.params.id)
-      .then((action) => {
-        if(action) {
-          req.action = action
-          next()
+  return (req, res, next) => {
+    actions
+      .get(req.params.id)
+      .then(action => {
+        if (action) {
+          req.action = action;
+          next();
         } else {
-          res.status(400).json({message: "invalid action id"})
+          res.status(400).json({ message: "invalid action id" });
         }
       })
       .catch(err => {
-        next(err)
-      })
-    }
-  }
-
-
-  function validateAction() {
-    return(req, res, next) => {
-        if(!req.body) {
-            return res.status(400).json({ message: "missing action data" });
-        } else if(!req.body.notes && !req.body.description && !req.body.project_id) {
-            return res.status(400).json({ message: "missing required three fields" });
-
-        }
-        next()
-    };
+        next(err);
+      });
+  };
 }
 
-
-
-
-
-
-
-
-
-
+function validateAction() {
+  return (req, res, next) => {
+    if (!req.body) {
+      return res.status(400).json({ message: "missing action data" });
+    } else if (
+      !req.body.notes &&
+      !req.body.description &&
+      !req.body.project_id
+    ) {
+      return res.status(400).json({ message: "missing required three fields" });
+    }
+    next();
+  };
+}
 
 module.exports = router;
