@@ -32,25 +32,51 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
-  //GET BY ID
+//GET BY ID
 
 //   router.get("/:id", validateProjectId(), (req, res) => {
 //     res.status(200).json(req.project);
-    
+
 //     });
 
 router.get("/:id", validateProjectId(), async (req, res) => {
+  try {
+    res.status(200).json(req.project);
+  } catch (error) {
+    next(error);
+  }
+});
 
-    try {
-        res.status(200).json(req.project);
-    } catch (error) {
-        next(error)
+//GET list of actions for specific project
+
+// router.get("/:id/actions", validateProjectId(), (req, res, next) => {
+
+//     projects.getProjectActions(req.params.id)
+//     .then(actions => {
+//         if(actions) {
+//             res.status(200).json(actions)
+//         } else {
+//             res.status(404).json({ message: "The project does not have actions." });
+//         }
+//     })
+//     .catch(err => {
+//         next(err)
+//     })
+
+// });
+
+router.get("/:id/actions", validateProjectId(), async (req, res, next) => {
+  try {
+    const actions = await projects.getProjectActions(req.params.id);
+    if (actions) {
+      res.status(200).json(actions);
+    } else {
+      res.status(404).json({ message: "The project does not have actions." });
     }
-    
-    });
-
-
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 
