@@ -33,6 +33,22 @@ router.get("/", async (req, res, next) => {
 });
 
 
+  //GET BY ID
+
+//   router.get("/:id", validateProjectId(), (req, res) => {
+//     res.status(200).json(req.project);
+    
+//     });
+
+router.get("/:id", validateProjectId(), async (req, res) => {
+
+    try {
+        res.status(200).json(req.project);
+    } catch (error) {
+        next(error)
+    }
+    
+    });
 
 
 
