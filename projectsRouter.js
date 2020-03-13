@@ -100,35 +100,48 @@ router.post("/", validateProject(), async (req, res, next) => {
   }
 });
 
+//DELETE project
 
+//  router.delete("/:id", validateProjectId(), (req, res, next) => {
+//     projects.remove(req.params.id)
+//     .then(count => {
+//       if (count > 0) {
+//         res.status(200).json({ message: 'The project has been deleted' });
+//       } else {
+//         res.status(404).json({ message: 'The project could not be found' });
+//       }
+//     })
+//     .catch(error => {
+//       next(error)
+//     });
 
- //DELETE project
+//   });
 
- router.delete("/:id", validateProjectId(), (req, res, next) => {
-    projects.remove(req.params.id)
-    .then(count => {
-      if (count > 0) {
-        res.status(200).json({ message: 'The project has been deleted' });
-      } else {
-        res.status(404).json({ message: 'The project could not be found' });
-      }
+router.delete("/:id", validateProjectId(), async (req, res, next) => {
+  try {
+    const count = await projects.remove(req.params.id);
+    if (count > 0) {
+      res.status(200).json({ message: "The project has been deleted" });
+    } else {
+      res.status(404).json({ message: "The project could not be found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+//PUT
+
+router.put("/:id", validateProjectId(), validateProject(), (req, res, next) => {
+  projects
+    .update(req.params.id, req.body)
+    .then(project => {
+      res.status(200).json(project);
     })
     .catch(error => {
-      next(error)
+      next(error);
     });
-
-  });
-
-
-
-
-
-
-
-
-
-
-
+});
 
 //Custom Middleware
 
@@ -175,7 +188,6 @@ function validateActionBody() {
       !req.body.notes &&
       !req.body.description &&
       !req.body.project_id
-     
     ) {
       return res.status(400).json({ message: "missing required three fields" });
     }
