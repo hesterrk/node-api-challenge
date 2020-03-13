@@ -192,21 +192,6 @@ function validateProjectId() {
   };
 }
 
-//Checks if action body is validated
 
-// function validateActionBody() {
-//   return (req, res, next) => {
-//     if (!req.body) {
-//       return res.status(400).json({ message: "missing action data" });
-//     } else if (
-//       !req.body.notes &&
-//       !req.body.description &&
-//       !req.body.project_id
-//     ) {
-//       return res.status(400).json({ message: "missing required three fields" });
-//     }
-//     next();
-//   };
-// }
 
 module.exports = router;
