@@ -132,16 +132,30 @@ router.delete("/:id", validateProjectId(), async (req, res, next) => {
 
 //PUT
 
-router.put("/:id", validateProjectId(), validateProject(), (req, res, next) => {
-  projects
-    .update(req.params.id, req.body)
-    .then(project => {
+// router.put("/:id", validateProjectId(), validateProject(), (req, res, next) => {
+//   projects
+//     .update(req.params.id, req.body)
+//     .then(project => {
+//       res.status(200).json(project);
+//     })
+//     .catch(error => {
+//       next(error);
+//     });
+// });
+
+router.put(
+  "/:id",
+  validateProjectId(),
+  validateProject(),
+  async (req, res, next) => {
+    try {
+      const project = await projects.update(req.params.id, req.body);
       res.status(200).json(project);
-    })
-    .catch(error => {
+    } catch (error) {
       next(error);
-    });
-});
+    }
+  }
+);
 
 //Custom Middleware
 
@@ -180,19 +194,19 @@ function validateProjectId() {
 
 //Checks if action body is validated
 
-function validateActionBody() {
-  return (req, res, next) => {
-    if (!req.body) {
-      return res.status(400).json({ message: "missing action data" });
-    } else if (
-      !req.body.notes &&
-      !req.body.description &&
-      !req.body.project_id
-    ) {
-      return res.status(400).json({ message: "missing required three fields" });
-    }
-    next();
-  };
-}
+// function validateActionBody() {
+//   return (req, res, next) => {
+//     if (!req.body) {
+//       return res.status(400).json({ message: "missing action data" });
+//     } else if (
+//       !req.body.notes &&
+//       !req.body.description &&
+//       !req.body.project_id
+//     ) {
+//       return res.status(400).json({ message: "missing required three fields" });
+//     }
+//     next();
+//   };
+// }
 
 module.exports = router;
