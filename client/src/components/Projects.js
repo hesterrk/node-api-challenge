@@ -45,7 +45,6 @@ function Projects() {
         >
           <div>
             <p> 📝 {project.name}</p>
-            <p> {project.completed}</p>
           </div>
         </Link>
       ))}

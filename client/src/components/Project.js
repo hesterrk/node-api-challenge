@@ -30,12 +30,9 @@ function Project() {
       </Link>
       <h3> This Project: </h3>
 
-    
-        <div>
-          <p> 📝 {project.name}</p>
-          <p> {project.completed}</p>
-        </div>
-      
+      <div>
+        <p> 📝 {project.name}</p> 
+      </div>
     </div>
   );
 }
