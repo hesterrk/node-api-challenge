@@ -78,6 +78,29 @@ router.get("/:id/actions", validateProjectId(), async (req, res, next) => {
   }
 });
 
+//POST a new project
+
+// router.post("/", validateProject(), (req, res, next) => {
+//     projects
+//       .insert(req.body)
+//       .then(project => {
+//         res.status(201).json(project);
+//       })
+//       .catch(err => {
+//         next(err);
+//       });
+//   });
+
+router.post("/", validateProject(), async (req, res, next) => {
+  try {
+    const project = await projects.insert(req.body);
+    res.status(201).json(project);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 
 
