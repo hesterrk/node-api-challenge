@@ -1,6 +1,45 @@
-
 const express = require('express');
-const actions = require("./data/helpers/projectModel");
+const projects = require("./data/helpers/projectModel");
 const router = express.Router();
+
+
+//GET All Projects
+
+router.get("/", (req, res, next) => {
+    projects
+      .get()
+      .then(project => {
+          if(project) {
+        res.status(200).json(project);
+          } else {
+              res.status(404).json({ message: "list of projects not here! "})
+          }
+      })
+      .catch(err => {
+        next(err);
+      });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
