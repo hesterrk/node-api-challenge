@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-
 function Project() {
   const [project, setProject] = useState([]);
   const { id } = useParams();
-
 
   useEffect(() => {
     const getProject = () => {
@@ -27,10 +25,17 @@ function Project() {
 
   return (
     <div>
-        <Link to={"/"}>
-            <button>Back to Projects</button>
-        </Link>
+      <Link to={"/"}>
+        <button>Back to Projects</button>
+      </Link>
       <h3> This Project: </h3>
+
+    
+        <div>
+          <p> 📝 {project.name}</p>
+          <p> {project.completed}</p>
+        </div>
+      
     </div>
   );
 }
