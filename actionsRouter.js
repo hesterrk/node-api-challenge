@@ -25,21 +25,14 @@ router.get("/:id", validateActionId(), async (req, res) => {
 
 //POST ACTION DEPENDS ON PROJECT ID
 
-router.post("/", validateAction(), (req, res, next) => {
-    actions
-      .insert(req.body)
-      .then(action => {
-        res.status(201).json(action);
-      })
-      .catch(err => {
-        next(err);
-      });
-  });
-
-
-
-
-
+router.post("/", validateAction(), async (req, res, next) => {
+  try {
+    const action = await actions.insert(req.body);
+    res.status(201).json(action);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.delete("/:id", validateActionId(), async (req, res, next) => {
   try {
