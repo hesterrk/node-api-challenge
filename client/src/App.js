@@ -1,45 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import axios from 'axios';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import "./App.css";
+import Project from "./components/Project";
+import Projects from "./components/Projects";
 
 function App() {
-
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    //only works if you have npm run server!
-    const getProjects = () => {
-    axios.get('http://localhost:4000/api/projects')
-    .then(res => {
-      console.log(res);
-      setProjects(res.data)
-      console.log(projects)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-
-  }
-
-  getProjects();
-
-  }, [])
-
   return (
     <div className="App">
-      <h2> List of Your Projects </h2>
-     
-         {projects.map(project => (
-          <div>
-          <p>{project.name}</p>
-          <p>{project.completed}</p>
-          </div>
-          
-  ))} 
-     
+      <h2> Welcome To Projects Page </h2>
 
-
-     
+      <Switch>
+        <Route exact path="/">
+          <Projects />
+        </Route>
+        <Route exact path="/project">
+          <Project />
+        </Route>
+      </Switch>
     </div>
   );
 }
