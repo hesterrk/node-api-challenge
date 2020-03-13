@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-const Div = styled.div `
-border: 3px solid #4389A2;
-padding: .5rem;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: flex-start;
-
-`
-
+const Div = styled.div`
+  border: 3px solid #4389a2;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: monospace;
+`;
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -37,10 +38,14 @@ function Projects() {
   return (
     <Div>
       {projects.map(project => (
-        <Link to={`/${project.id}`} style={{ textDecoration: "none"}} key={project.id}>
+        <Link
+          to={`/${project.id}`}
+          style={{ textDecoration: "none" }}
+          key={project.id}
+        >
           <div>
-            <p>{project.name}</p>
-            <p>{project.completed}</p>
+            <p> 📝 {project.name}</p>
+            <p> {project.completed}</p>
           </div>
         </Link>
       ))}
