@@ -86,8 +86,8 @@ function validateAction() {
     if (!req.body) {
       return res.status(400).json({ message: "missing action data" });
     } else if (
-      !req.body.notes &&
-      !req.body.description &&
+      !req.body.notes ||
+      !req.body.description ||
       !req.body.project_id
     ) {
       return res.status(400).json({ message: "missing required three fields" });

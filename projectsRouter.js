@@ -164,7 +164,7 @@ function validateProject() {
   return (req, res, next) => {
     if (!req.body) {
       return res.status(400).json({ message: "missing project data" });
-    } else if (!req.body.name && !req.body.description) {
+    } else if (!req.body.name || !req.body.description) {
       return res
         .status(400)
         .json({ message: "missing required name and description fields" });
