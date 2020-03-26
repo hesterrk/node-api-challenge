@@ -40,13 +40,32 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+-It is JS framework that sits on top of the Node.js web server.
+1) Middleware which is essentially an array of functions. Everything we build in express revolves around this, such as route handler functions which are a piece of middelware themselves. These functions that get the ‘request’ object and ‘response’ object, can perform operations on them, and can either move into the next middleware, or return a response back to the client.
+
+2) Express Routing: which is a way to select which request handler function is executed based on the URL and the HTTP method used. Each Router can have its own middleware and routing  which improves functionality
+
+
 - [ ] Describe Middleware?
+
+-Middleware which is essentially an array of functions. Everything we build in express revolves around this, such as route handler functions which are a piece of middelware themselves. These functions that get the ‘request’ object and ‘response’ object, can perform operations on them, and can either move into the next middleware, or return a response back to the client. Middleware can change the request or response, but doesn't have too (doesnt have to be something the user sees, could be a quick check in the system). We can create our own custom middleware such as error handling middleware or regular middleware such as a logger. There is also global middelware which applies to every endpoint in our server. Local middleware however only applies to the endpoint where we add it.
+
+-Examples include: logging requests(user interacts with your api, you can get logs/insights into who), security through auth middleware functions. 
 
 - [ ] Describe a Resource?
 
+ -It is a piece of data e.g user, product, comment, blog post. Any piece of data that is being represented in our database or in our app is considered a resource. Each one of these resources should be represented through its own unique URL in our API. Each resource is managed by HTTP methods (CRUD). 
+
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+ -A status code of 200 which means the request has succeeded. A 201 in the case of a POST or some pUT requests to let client know the request has succeeded and new resource has been created consequently.
+
+
 - [ ] How can we partition our application into sub-applications?
+
+ -Express routers allow us to split our app into sub routes which makes it modular and easier to contain. We can place our sub-routes (endpoints that relate to a particular resource in our main file) in another file and create a new express router. We can then export them using the CommonJS module system, in our main index.js or server.js file we can then import our sub-routes here.
+
 
 ## Minimum Viable Product
 
